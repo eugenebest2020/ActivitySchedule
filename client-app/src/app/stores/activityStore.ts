@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import { Activity } from "../models/activity";
 import { v4 as uuid } from 'uuid';
 import { Console } from "console";
+import { format } from 'date-fns';
 
 export default class ActivityStore {
 
@@ -23,7 +24,7 @@ export default class ActivityStore {
     get groupedActivities() {
         return Object.entries(
             this.activitiesByDate.reduce((activities, activity) => {
-                const date = activity.date!.toISOString().split('T')[0];
+                const date = format(activity.date!, 'dd MMM yyyy');
                 activities[date] = activities[date] ? [...activities[date], activity]
                     : [activity];
                 return activities;
